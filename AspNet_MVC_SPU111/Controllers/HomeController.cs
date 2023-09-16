@@ -12,6 +12,11 @@ namespace AspNet_MVC_SPU111.Controllers
 
         public IActionResult Index()
         {
+            // add to the db
+            // read
+            // modify
+            // ...
+
             return View(); // ~/Views/Home/Index.cshtml
         }
 
