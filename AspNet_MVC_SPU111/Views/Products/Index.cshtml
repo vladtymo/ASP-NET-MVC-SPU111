@@ -12,12 +12,13 @@
             <th scope="col">Price</th>
             <th scope="col">Status</th>
             <th scope="col">Category</th>
+            <th scope="col">Actions</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var i in Model)
         {
-            <tr>
+            <tr class="align-middle">
                 <th scope="row">@i.Id</th>
                 <td>@i.Name</td>
                 <td>@i.Price$</td>
@@ -32,6 +33,9 @@
                     }
                 </td>
                 <td>@i.CategoryId</td>
+                <td>
+                    <a asp-action="Delete" asp-route-id="@i.Id" class="btn btn-danger">Delete</a>
+                </td>
             </tr>
         }
     </tbody>
