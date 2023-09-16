@@ -21,7 +21,16 @@
                 <th scope="row">@i.Id</th>
                 <td>@i.Name</td>
                 <td>@i.Price$</td>
-                <td>@i.InStock</td>
+                <td>
+                    @if (i.InStock)
+                    {
+                        <span class="badge bg-success">In Stock</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-secondary">Out of Stock</span>
+                    }
+                </td>
                 <td>@i.CategoryId</td>
             </tr>
         }
