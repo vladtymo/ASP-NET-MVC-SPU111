@@ -1,6 +1,7 @@
 ﻿using AspNet_MVC_SPU111.Data;
 using AspNet_MVC_SPU111.Data.Entities;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace AspNet_MVC_SPU111.Controllers
 {
@@ -20,6 +21,12 @@ namespace AspNet_MVC_SPU111.Controllers
         [HttpGet]
         public IActionResult Create()
         {
+            // Ways of sending data to View
+            // 1 - use View.Model: return View(obj)
+            // 2 - use View.TempData: this.TempDate["Property"] = value
+            // 3 - use View.ViewBag: this.ViewBag.Property = value
+            this.ViewBag.Categories = new SelectList(ctx.Categories.ToList(), "Id", "Name");
+
             return View();
         }
 
