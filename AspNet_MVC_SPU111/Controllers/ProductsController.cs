@@ -16,6 +16,23 @@ namespace AspNet_MVC_SPU111.Controllers
             return View(products);
         }
 
+        // GET: show create form page
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        // GET: show create form page
+        [HttpPost]
+        public IActionResult Create(Product product)
+        {
+            ctx.Products.Add(product);
+            ctx.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+
         // Delete product by ID
         public IActionResult Delete(int id)
         {
