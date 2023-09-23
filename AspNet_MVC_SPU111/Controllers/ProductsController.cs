@@ -9,6 +9,11 @@ namespace AspNet_MVC_SPU111.Controllers
     {
         ShopSPUDbContext ctx = new ShopSPUDbContext();
 
+        private void LoadCategories()
+        {
+            this.ViewBag.Categories = new SelectList(ctx.Categories.ToList(), "Id", "Name");
+        }
+
         // Get all products
         public IActionResult Index()
         {
@@ -25,12 +30,13 @@ namespace AspNet_MVC_SPU111.Controllers
             // 1 - use View.Model: return View(obj)
             // 2 - use View.TempData: this.TempDate["Property"] = value
             // 3 - use View.ViewBag: this.ViewBag.Property = value
-            this.ViewBag.Categories = new SelectList(ctx.Categories.ToList(), "Id", "Name");
+            //this.ViewBag.Categories = new SelectList(ctx.Categories.ToList(), "Id", "Name");
+            LoadCategories();
 
             return View();
         }
 
-        // GET: show create form page
+        // POST: add product to the database
         [HttpPost]
         public IActionResult Create(Product product)
         {
@@ -39,6 +45,28 @@ namespace AspNet_MVC_SPU111.Controllers
 
             return RedirectToAction("Index");
         }
+
+        public IActionResult Edit(int id)
+        {
+            var item = ctx.Products.Find(id);
+
+            if (item == null) return NotFound();
+
+            LoadCategories();
+
+            return View(item);
+        }
+
+        // POST: update product in the database
+        [HttpPost]
+        public IActionResult Edit(Product product)
+        {
+            ctx.Products.Update(product);
+            ctx.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+
 
         // Delete product by ID
         public IActionResult Delete(int id)
