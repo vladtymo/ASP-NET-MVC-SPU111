@@ -1,7 +1,7 @@
-﻿using AspNet_MVC_SPU111.Data.Entities;
+﻿using DataAccess.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace AspNet_MVC_SPU111.Data
+namespace DataAccess.Data
 {
     public class ShopSPUDbContext : DbContext
     {

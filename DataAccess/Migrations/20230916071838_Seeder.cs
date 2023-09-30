@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace AspNet_MVC_SPU111.Migrations
+namespace DataAccess.Migrations
 {
     public partial class Seeder : Migration
     {
