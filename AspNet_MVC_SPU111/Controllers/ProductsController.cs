@@ -68,6 +68,13 @@ namespace AspNet_MVC_SPU111.Controllers
         [HttpPost]
         public IActionResult Edit(Product product)
         {
+            // validate all Product properties
+            if (!ModelState.IsValid)
+            {
+                LoadCategories();
+                return View(product);
+            }
+
             ctx.Products.Update(product);
             ctx.SaveChanges();
 
