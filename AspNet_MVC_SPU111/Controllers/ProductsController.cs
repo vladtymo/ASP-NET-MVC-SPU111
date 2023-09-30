@@ -7,7 +7,12 @@ namespace AspNet_MVC_SPU111.Controllers
 {
     public class ProductsController : Controller
     {
-        ShopSPUDbContext ctx = new ShopSPUDbContext();
+        private readonly ShopSPUDbContext ctx;
+
+        public ProductsController(ShopSPUDbContext ctx)
+        {
+            this.ctx = ctx;
+        }
 
         private void LoadCategories()
         {
