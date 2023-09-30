@@ -1,4 +1,5 @@
 ﻿using AspNet_MVC_SPU111.Models;
+using DataAccess.Data;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -6,8 +7,11 @@ namespace AspNet_MVC_SPU111.Controllers
 {
     public class HomeController : Controller
     {
-        public HomeController()
+        private readonly ShopSPUDbContext ctx;
+
+        public HomeController(ShopSPUDbContext ctx)
         {
+            this.ctx = ctx;
         }
 
         public IActionResult Index()
@@ -17,7 +21,7 @@ namespace AspNet_MVC_SPU111.Controllers
             // modify
             // ...
 
-            return View(); // ~/Views/Home/Index.cshtml
+            return View(ctx.Products.ToList()); // ~/Views/Home/Index.cshtml
         }
 
         public IActionResult Privacy()
