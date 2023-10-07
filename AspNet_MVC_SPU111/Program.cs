@@ -17,9 +17,14 @@ builder.Services.AddControllersWithViews();
 // configure dependencies
 builder.Services.AddDbContext<ShopSPUDbContext>(opts => opts.UseSqlServer(connStr));
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<ShopSPUDbContext>();
-//builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+builder.Services.AddDefaultIdentity<User>(options =>
+    {
+        options.SignIn.RequireConfirmedAccount = true;
+        options.Password.RequireDigit = true;
+
+    }).AddEntityFrameworkStores<ShopSPUDbContext>();
+
+//builder.Services.AddIdentity<User, IdentityRole>()
 //               .AddDefaultTokenProviders()
 //               .AddDefaultUI()
 //               .AddEntityFrameworkStores<ShopSPUDbContext>();
