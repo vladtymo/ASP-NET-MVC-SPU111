@@ -1,11 +1,13 @@
 ﻿using AspNet_MVC_SPU111.Helpers;
 using DataAccess.Data;
 using DataAccess.Data.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
 namespace AspNet_MVC_SPU111.Controllers
 {
+    [Authorize]
     public class OrdersController : Controller
     {
         private readonly ShopSPUDbContext ctx;
