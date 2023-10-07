@@ -1,10 +1,12 @@
 ﻿using DataAccess.Data;
 using DataAccess.Data.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace AspNet_MVC_SPU111.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class ProductsController : Controller
     {
         private readonly ShopSPUDbContext ctx;
@@ -20,6 +22,7 @@ namespace AspNet_MVC_SPU111.Controllers
         }
 
         // Get all products
+        [AllowAnonymous]
         public IActionResult Index()
         {
             var products = ctx.Products.ToList();
