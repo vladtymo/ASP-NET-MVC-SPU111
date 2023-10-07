@@ -19,6 +19,10 @@ builder.Services.AddDbContext<ShopSPUDbContext>(opts => opts.UseSqlServer(connSt
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ShopSPUDbContext>();
+//builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+//               .AddDefaultTokenProviders()
+//               .AddDefaultUI()
+//               .AddEntityFrameworkStores<ShopSPUDbContext>();
 
 // add FluentValidator with validation classes
 builder.Services.AddFluentValidationAutoValidation();
