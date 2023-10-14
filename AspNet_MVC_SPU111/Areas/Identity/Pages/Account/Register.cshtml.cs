@@ -4,6 +4,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
@@ -104,6 +105,10 @@ namespace AspNet_MVC_SPU111.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+
+            [Display(Name = "Admin User?")]
+            [DefaultValue(false)]
+            public bool IsAdmin { get; set; }
         }
 
 
@@ -132,8 +137,11 @@ namespace AspNet_MVC_SPU111.Areas.Identity.Pages.Account
                 {
                     _logger.LogInformation("User created a new account with password.");
 
-                    // add User role
-                    await _userManager.AddToRoleAsync(user, Roles.User.ToString());
+                    // add role to user
+                    if (Input.IsAdmin && User.IsInRole(Roles.Admin.ToString()))
+                        await _userManager.AddToRoleAsync(user, Roles.Admin.ToString());
+                    else
+                        await _userManager.AddToRoleAsync(user, Roles.User.ToString());
 
                     var userId = await _userManager.GetUserIdAsync(user);
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
