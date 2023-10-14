@@ -6,6 +6,7 @@ using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using Microsoft.AspNetCore.Identity;
+using AspNet_MVC_SPU111.Helpers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,17 +18,17 @@ builder.Services.AddControllersWithViews();
 // configure dependencies
 builder.Services.AddDbContext<ShopSPUDbContext>(opts => opts.UseSqlServer(connStr));
 
-builder.Services.AddDefaultIdentity<User>(options =>
-    {
-        options.SignIn.RequireConfirmedAccount = true;
-        options.Password.RequireDigit = true;
+//builder.Services.AddDefaultIdentity<User>(options =>
+//    {
+//        options.SignIn.RequireConfirmedAccount = true;
+//        options.Password.RequireDigit = true;
 
-    }).AddEntityFrameworkStores<ShopSPUDbContext>();
+//    }).AddEntityFrameworkStores<ShopSPUDbContext>();
 
-//builder.Services.AddIdentity<User, IdentityRole>()
-//               .AddDefaultTokenProviders()
-//               .AddDefaultUI()
-//               .AddEntityFrameworkStores<ShopSPUDbContext>();
+builder.Services.AddIdentity<User, IdentityRole>()
+               .AddDefaultTokenProviders()
+               .AddDefaultUI()
+               .AddEntityFrameworkStores<ShopSPUDbContext>();
 
 // add FluentValidator with validation classes
 builder.Services.AddFluentValidationAutoValidation();
@@ -43,6 +44,18 @@ builder.Services.AddSession(options =>
 
 var app = builder.Build();
 
+// seed admin user
+using (IServiceScope scope = app.Services.CreateScope())
+{
+    var serviceProvider = scope.ServiceProvider;
+
+    // seed roles
+    SeedExtensions.SeedRoles(serviceProvider).Wait();
+
+    // seed admin
+    SeedExtensions.SeedAdmin(serviceProvider).Wait();
+}
+
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
@@ -55,7 +68,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-app.UseAuthentication();;
+app.UseAuthentication();
 
 app.UseAuthorization();
 
