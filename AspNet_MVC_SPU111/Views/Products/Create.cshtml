@@ -1,8 +1,8 @@
-﻿@model DataAccess.Data.Entities.Product;
+﻿@model AspNet_MVC_SPU111.Models.CreateProductModel;
 
 <h1>Create New Product</h1>
 
-<form asp-action="Create" method="post" class="row g-3">
+<form asp-action="Create" method="post" enctype="multipart/form-data" class="row g-3">
     <div class="col-md-12">
         <label asp-for="Name" class="form-label">Name</label>
         <input asp-for="Name" type="text" class="form-control" placeholder="Enter name">
@@ -34,9 +34,10 @@
         <span asp-validation-for="Description" class="form-text text-danger"></span>
     </div>
     <div class="col-md-12">
-        <label asp-for="ImageUrl" class="form-label">Image URL</label>
-        <input asp-for="ImageUrl" type="text" class="form-control" placeholder="Enter image url address">
-        <span asp-validation-for="ImageUrl" class="form-text text-danger"></span>
+        <label asp-for="ImageFile" class="form-label">Image</label>
+        @* <input asp-for="ImageUrl" type="text" class="form-control" placeholder="Enter image url address"> *@
+        <input asp-for="ImageFile" type="file" class="form-control">
+        <span asp-validation-for="ImageFile" class="form-text text-danger"></span>
     </div>
     <div class="col-12">
         <div class="form-check">
